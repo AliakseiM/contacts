@@ -11,14 +11,11 @@ struct ContentView: View {
     var tutors: [Tutor] = []
     
     var body: some View {
-        List(tutors) { tutor in
-            Image(tutor.imageName)
-            VStack(alignment: .leading) {
-                Text(tutor.name)
-                Text(tutor.headline)
-                    .font(.subheadline)
-                    .foregroundColor(Color.gray)
+        NavigationView {
+            List(tutors) { tutor in
+                TutorCell(tutor: tutor)
             }
+            .navigationTitle(Text("Tutors"))
         }
     }
 }
@@ -30,3 +27,22 @@ struct ContentView_Previews : PreviewProvider {
     }
 }
 #endif
+
+struct TutorCell: View {
+    let tutor: Tutor
+    var body: some View {
+        return NavigationLink(destination: TutorDetail(
+            name: tutor.name,
+            headline: tutor.headline,
+            bio: tutor.bio)) {
+                Image(tutor.imageName)
+                    .cornerRadius(40)
+                VStack(alignment: .leading) {
+                    Text(tutor.name)
+                    Text(tutor.headline)
+                        .font(.subheadline)
+                        .foregroundColor(Color.gray)
+            }
+        }
+    }
+}
