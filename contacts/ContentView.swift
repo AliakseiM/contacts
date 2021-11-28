@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    var tutors: [Tutor] = []
+    
     var body: some View {
-        List(/*@START_MENU_TOKEN@*/0 ..< 5/*@END_MENU_TOKEN@*/) { item in
-            Image(systemName: "photo")
+        List(tutors) { tutor in
+            Image(tutor.imageName)
             VStack(alignment: .leading) {
-                Text("Aliaksei M")
-                Text("Founder")
+                Text(tutor.name)
+                Text(tutor.headline)
                     .font(.subheadline)
                     .foregroundColor(Color.gray)
             }
@@ -21,8 +23,10 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+#if DEBUG
+struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(tutors: testData)
     }
 }
+#endif
